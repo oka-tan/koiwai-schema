@@ -21,9 +21,9 @@ CREATE TABLE post (
     media_deleted BOOLEAN,
     time_media_deleted TIMESTAMP WITH TIME ZONE CHECK(time_media_deleted >= created_at AND last_modified >= time_media_deleted),
     media_timestamp BIGINT CHECK(media_timestamp > 0),
-    media_4chan_hash bytea CHECK(OCTET_LENGTH(media_4chan_hash) > 0),
-    media_internal_hash bytea CHECK(OCTET_LENGTH(media_internal_hash) > 0),
-    thumbnail_internal_hash bytea CHECK(OCTET_LENGTH(thumbnail_internal_hash) > 0),
+    media_4chan_hash BYTEA CHECK(OCTET_LENGTH(media_4chan_hash) > 0),
+    media_internal_hash BYTEA CHECK(OCTET_LENGTH(media_internal_hash) > 0),
+    thumbnail_internal_hash BYTEA CHECK(OCTET_LENGTH(thumbnail_internal_hash) > 0),
     media_extension TEXT CHECK(media_extension != ''),
     media_file_name TEXT CHECK(media_file_name != ''),
     media_size INTEGER CHECK(media_size > 0),
@@ -84,3 +84,6 @@ ALTER TABLE post ALTER COLUMN media_file_name SET STORAGE EXTERNAL;
 CREATE INDEX post_thread_number_post_number_index ON post(thread_number, post_number);
 CREATE INDEX post_op_post_number_index ON post(post_number) WHERE op;
 CREATE INDEX post_last_modified_index ON post(last_modified, post_number);
+
+CREATE TABLE media (hash BYTEA PRIMARY KEY);
+ALTER TABLE media ALTER COLUMN hash SET STORAGE EXTERNAL;
