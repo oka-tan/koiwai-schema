@@ -87,3 +87,9 @@ CREATE INDEX post_last_modified_index ON post(last_modified, post_number);
 
 CREATE TABLE media (hash BYTEA PRIMARY KEY);
 ALTER TABLE media ALTER COLUMN hash SET STORAGE EXTERNAL;
+
+CREATE TABLE index_tracker(
+    board TEXT PRIMARY KEY,
+    last_modified TIMESTAMP WITH TIME ZONE NOT NULL,
+    post_number BIGINT NOT NULL
+);
